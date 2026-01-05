@@ -73,14 +73,18 @@ void GlobalState::loadGrid(int level)
     player.init();
     player.setGridPosition(1, 1);
 
-
+   
     targetGX = -1;
     targetGY = -1;
-
+    
     soundPlayed = false;
 
+    
     levelCompleted = false;
     levelTimer = 0.0f;
+    
+    
+
 }
 
 bool GlobalState::isWalkable(int gx, int gy) const
@@ -92,7 +96,7 @@ bool GlobalState::isWalkable(int gx, int gy) const
 }
 
 bool GlobalState::isAtGoal() const
-{
+{ 
     return player.getGX() == targetGX && player.getGY() == targetGY;
 }
 
@@ -113,7 +117,7 @@ void GlobalState::update(float dt)
         }
 
         if (!isWalkable(targetX, targetY)) {
-            graphics::playSound(std::string(ASSET_PATH) + "den_eimai_bro.mp3", 0.5f, false);           
+            graphics::playSound(std::string(ASSET_PATH) + "den_eimai_bro.mp3", 0.3f, false);           
         }
         auto path = findPathAStar(
             grid,
@@ -135,22 +139,37 @@ void GlobalState::update(float dt)
     if (!soundPlayed && player.getGX() == targetGX && player.getGY() == targetGY) {
 
         if (currentGrid == 0) {
-            graphics::playSound(std::string(ASSET_PATH) + "aristotelis_bro.mp3", 0.5f, false);
+            graphics::playSound(std::string(ASSET_PATH) + "aristotelis_bro.mp3", 0.3f, false);
             
         }
         else if (currentGrid == 1) {
-            graphics::playSound(std::string(ASSET_PATH) + "megas_alexandros_type_c.mp3", 0.5f, false);
+            graphics::playSound(std::string(ASSET_PATH) + "megas_alexandros_type_c.mp3", 0.3f, false);
         }
         else if (currentGrid == 2) {
-            graphics::playSound(std::string(ASSET_PATH) + "nootropia_read_a_book.mp3", 0.5f, false);
+            graphics::playSound(std::string(ASSET_PATH) + "nootropia_read_a_book.mp3", 0.3f, false);
         }
         soundPlayed = true;
     }
 
-    if (isAtGoal())
+    if (isAtGoal() && !levelCompleted)
     {
-        if (currentGrid < 2)
-            loadGrid(currentGrid + 1);
+        levelCompleted = true;
+        levelTimer = 0.0f;
+    }
+
+    if (levelCompleted) {
+       
+        levelTimer += dt * 0.001f;
+        
+        if (levelTimer >= 2.5f) {
+           
+            if (currentGrid < 2) {
+                loadGrid(currentGrid + 1);
+            }
+            else {
+                graphics::destroyWindow();
+            }
+        }
     }
 }
 

@@ -39,7 +39,6 @@ public:
     //levertimer
     bool levelCompleted = false;
     float levelTimer = 0.0f;
-    const float LEVEL_DELAY = 3.0f;
 
     void loadGrid(int grid);
     bool isAtGoal() const;

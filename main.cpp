@@ -20,7 +20,7 @@ int main()
 {
     graphics::createWindow(500, 500, "Gio Kay Ahh Game");
 
-    graphics::playMusic(std::string(ASSET_PATH) + "ost.mp3", 0.05f, true, 0);
+    graphics::playMusic(std::string(ASSET_PATH) + "ost.mp3", 0.03f, true, 0);
 
     gs.init();
 

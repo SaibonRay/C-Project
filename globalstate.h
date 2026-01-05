@@ -29,10 +29,17 @@ public:
     int targetGX = -1;
     int targetGY = -1;
 
+    bool soundPlayed = false;
+
     //levels 
     int currentGrid = 0;
     static const int TOTAL_LEVELS = 3;
     bool gameOver = false;
+
+    //levertimer
+    bool levelCompleted = false;
+    float levelTimer = 0.0f;
+    const float LEVEL_DELAY = 3.0f;
 
     void loadGrid(int grid);
     bool isAtGoal() const;

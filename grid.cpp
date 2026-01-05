@@ -39,13 +39,21 @@ void drawGrid(const GlobalState& gs)
                 graphics::drawRect(cx, cy, ts, ts, br);
             }
 
-            if (x == gs.targetGX && y == gs.targetGY) {
+            if (x == gs.targetGX && y == gs.targetGY) {             
                 graphics::Brush targetBr;
                 targetBr.fill_opacity = 1.0f;
                 targetBr.outline_opacity = 0.0f;
-                targetBr.texture = std::string(ASSET_PATH) + "aristotelis.png";
+
+                if (gs.currentGrid == 0)
+                    targetBr.texture = std::string(ASSET_PATH) + "aristotelis.png";
+                else if (gs.currentGrid == 1)
+                    targetBr.texture = std::string(ASSET_PATH) + "megas_alexandros.png";
+                else if (gs.currentGrid == 2)
+                    targetBr.texture = std::string(ASSET_PATH) + "laws.png";
+
                 graphics::drawRect(cx, cy, ts, ts, targetBr);
             }
+
         }
     }
 }
